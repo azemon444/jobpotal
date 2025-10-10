@@ -1,0 +1,102 @@
+[
+    {
+        "company": "Grameenphone Ltd.",
+        "email": "grameenphone1@example.com",
+        "password": "password"
+    },
+    {
+        "company": "bKash Limited",
+        "email": "bkash1@example.com",
+        "password": "password"
+    },
+    {
+        "company": "Square Group",
+        "email": "square1@example.com",
+        "password": "password"
+    },
+    {
+        "company": "PRAN-RFL Group",
+        "email": "pranrfl1@example.com",
+        "password": "password"
+    },
+    {
+        "company": "BRAC",
+        "email": "brac1@example.com",
+        "password": "password"
+    },
+    {
+        "company": "ACI Limited",
+        "email": "aci1@example.com",
+        "password": "password"
+    },
+    {
+        "company": "Robi Axiata Limited",
+        "email": "robi1@example.com",
+        "password": "password"
+    },
+    {
+        "company": "Walton Group",
+        "email": "walton1@example.com",
+        "password": "password"
+    },
+    {
+        "company": "Unilever Bangladesh",
+        "email": "unilever1@example.com",
+        "password": "password"
+    },
+    {
+        "company": "Banglalink",
+        "email": "banglalink1@example.com",
+        "password": "password"
+    },
+    {
+        "company": "City Bank",
+        "email": "city1@example.com",
+        "password": "password"
+    },
+    {
+        "company": "IFIC Bank",
+        "email": "ific1@example.com",
+        "password": "password"
+    },
+    {
+        "company": "LankaBangla Finance",
+        "email": "lankabangla1@example.com",
+        "password": "password"
+    },
+    {
+        "company": "Pathao",
+        "email": "pathao1@example.com",
+        "password": "password"
+    },
+    {
+        "company": "Daraz",
+        "email": "daraz1@example.com",
+        "password": "password"
+    },
+    {
+        "company": "Foodpanda",
+        "email": "foodpanda1@example.com",
+        "password": "password"
+    },
+    {
+        "company": "Uber Bangladesh",
+        "email": "uber1@example.com",
+        "password": "password"
+    },
+    {
+        "company": "Shwapno",
+        "email": "shwapno1@example.com",
+        "password": "password"
+    },
+    {
+        "company": "Beximco",
+        "email": "beximco1@example.com",
+        "password": "password"
+    },
+    {
+        "company": "Akij Group",
+        "email": "akij1@example.com",
+        "password": "password"
+    }
+]
