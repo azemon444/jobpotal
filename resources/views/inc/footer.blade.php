@@ -63,8 +63,30 @@
 @push('css')
 <style>
   .footer-main{
-    background-color:#272727;
-    color:#ddd;
+    background: linear-gradient(135deg, #23272b 60%, #0dcaf0 100%) !important;
+    color: #f8f9fa !important;
+  }
+  .footer-links .footer-hdr{
+    color: #f8f9fa !important;
+    text-shadow: 0 1px 4px #0a58ca33;
+  }
+  .footer-links .footer-link-list .footer-links{
+    color: #e3e3e3 !important;
+    text-shadow: 0 1px 2px #0a58ca22;
+  }
+  .footer-links .footer-link-list .footer-links:hover{
+    color: #fff !important;
+    background: #0a58ca22;
+    border-radius: 4px;
+  }
+  .footer-main .social-links .social-link{
+    background-color: #0dcaf0 !important;
+    color: #fff !important;
+    border: 1px solid #0a58ca;
+  }
+  .footer-main .social-links .social-link:hover{
+    background-color: #0a58ca !important;
+    color: #fff !important;
   }
   .footer-links{
     padding-top:2rem;

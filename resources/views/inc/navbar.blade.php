@@ -1,53 +1,71 @@
-<nav class="navbar navbar-expand-md navbar-white bg-white border-bottom sticky-top" id="navbar">
-  <div class="container">
-  <a href="{{URL('/')}}" class="navbar-brand">
-  JobPortal
+<nav class="navbar navbar-expand-lg bg-body border-bottom sticky-top shadow-sm" id="navbar">
+  <div class="container-fluid">
+    <a href="{{URL('/')}}" class="navbar-brand fw-bold text-primary">
+      <i class="fas fa-briefcase me-2"></i>JobPortal
     </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-     <i class="fas fa-bars"></i>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto">
+      <div class="mx-auto" style="max-width:520px;width:100%;">
+        <form class="d-flex" action="{{ url('search') }}" method="GET" autocomplete="off">
+          <input id="search-q" type="text" name="q" placeholder="Search jobs, companies..." class="form-control me-2" style="min-width:180px;" list="company-list">
+          <datalist id="company-list">
+            @isset($topEmployers)
+              @foreach($topEmployers as $employer)
+                <option value="{{ $employer->title }}">
+              @endforeach
+            @endisset
+          </datalist>
+          <button type="submit" class="btn btn-outline-primary"><i class="fas fa-search"></i></button>
+        </form>
+      </div>
+      <ul class="navbar-nav ms-auto align-items-center">
         @auth
-        <li class="nav-item dropdown dropdown-left"> 
-          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
-          <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{auth()->user()->name}}</span> 
-      @php
-        $profilePic = null;
-        if(auth()->check()) {
-          $profile = \App\Models\UserProfile::where('user_id', auth()->id())->first();
-          if($profile && $profile->profile_pic) {
-            $profilePic = asset($profile->profile_pic);
-          }
-        }
-      @endphp
-      <span style="display:inline-block;width:40px;height:40px;vertical-align:middle;overflow:hidden;border-radius:50%;">
-        <img src="{{ $profilePic ?? asset('images/user-profile.png') }}" alt="Profile Picture" style="width:40px;height:40px;object-fit:cover;object-position:center;border-radius:50%;display:block;">
-      </span>
+        <li class="nav-item">
+          <button class="btn btn-link nav-link theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+            <i class="fas fa-moon"></i>
+          </button>
+        </li>
+        <li class="nav-item dropdown d-flex align-items-center">
+          <a class="nav-link d-flex align-items-center text-decoration-none" href="{{ route('account.index') }}" id="userAccountLink">
+            <span class="me-2 d-none d-lg-inline text-body small fw-medium">{{ auth()->user()->first_name ?? (method_exists(auth()->user(), 'getFirstName') ? auth()->user()->getFirstName() : explode(' ', auth()->user()->name)[0]) }}</span>
+            @php
+              $profilePic = null;
+              if(auth()->check()) {
+                $profile = \App\Models\UserProfile::where('user_id', auth()->id())->first();
+                if($profile && $profile->profile_pic) {
+                  $profilePic = asset($profile->profile_pic);
+                }
+              }
+            @endphp
+            <img src="{{ $profilePic ?? asset('images/user-profile.png') }}" alt="Profile Picture" class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover;">
           </a>
-          <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown"> 
+          <!-- Removed dropdown toggle and down arrow for cleaner UI -->
+          <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userDropdown">
             @role('admin')
-            <a class="dropdown-item" href="{{route('account.dashboard')}}"> <i class="fas fa-cogs fa-sm "></i> Dashboard</a> 
+            <li><a class="dropdown-item" href="{{route('account.dashboard')}}"><i class="fas fa-cogs fa-sm me-2"></i>Dashboard</a></li>
             @endrole
             @role('author')
-            <a class="dropdown-item" href="{{route('account.authorSection')}}"> <i class="fa fa-cogs fa-sm "></i> Author Dashboard </a> 
+            <li><a class="dropdown-item" href="{{route('account.authorSection')}}"><i class="fas fa-cogs fa-sm me-2"></i>Author Dashboard</a></li>
             @endrole
-            <a class="dropdown-item" href="{{route('account.index')}}"> <i class="fas fa-user fa-sm "></i> Profile </a> 
-            <a class="dropdown-item" href="{{route('account.changePassword')}}"> <i class="fas fa-key fa-sm "></i> Change Password </a> 
-              <div class="dropdown-divider"></div> 
-              <a class="dropdown-item" href="{{route('account.logout')}}"> 
-                <i class="fas fa-sign-out-alt"></i> 
-                Logout 
-              </a>
-          </div>
+            <li><a class="dropdown-item" href="{{route('profile.show')}}"><i class="fas fa-user fa-sm me-2"></i>Profile</a></li>
+            <li><a class="dropdown-item" href="{{route('account.changePassword')}}"><i class="fas fa-key fa-sm me-2"></i>Change Password</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><form method="POST" action="{{ route('logout') }}" style="display: inline;">
+                @csrf
+                <button type="submit" class="dropdown-item" style="border: none; background: none; padding: 0; width: 100%; text-align: left;"><i class="fas fa-sign-out-alt fa-sm me-2"></i>Logout</button>
+            </form></li>
+          </ul>
         </li>
         @endauth
         @guest
-        <a href="/login" class="btn primary-btn">Sign up or Log in</a>
+        <li class="nav-item">
+          <a href="/login" class="btn btn-primary btn-sm px-3">Sign up or Log in</a>
+        </li>
         @endguest
       </ul>
     </div>
   </div>
- 
 </nav>

@@ -46,6 +46,17 @@ Route::middleware('auth')->prefix('account')->group(function () {
 
   //Admin Role Routes
   Route::group(['middleware' => ['role:admin']], function () {
+  Route::get('roles/{id}/edit', [RoleController::class, 'edit'])->name('roles.edit');
+  Route::put('roles/{id}', [RoleController::class, 'update'])->name('roles.update');
+  Route::delete('roles/{id}', [RoleController::class, 'destroy'])->name('roles.destroy');
+  // Permission management
+  Route::get('permissions/{id}/edit', [PermissionController::class, 'edit'])->name('permissions.edit');
+  Route::put('permissions/{id}', [PermissionController::class, 'update'])->name('permissions.update');
+  Route::delete('permissions/{id}', [PermissionController::class, 'destroy'])->name('permissions.destroy');
+  // Post approval system
+  Route::get('pending-posts', [AdminController::class, 'pendingPosts'])->name('admin.pendingPosts');
+  Route::post('pending-posts/{id}/approve', [AdminController::class, 'approvePost'])->name('admin.approvePost');
+  Route::post('pending-posts/{id}/reject', [AdminController::class, 'rejectPost'])->name('admin.rejectPost');
     Route::get('dashboard', [AdminController::class, 'dashboard'])->name('account.dashboard');
     Route::get('view-all-users', [AdminController::class, 'viewAllUsers'])->name('account.viewAllUsers');
     Route::delete('view-all-users', [AdminController::class, 'destroyUser'])->name('account.destroyUser');

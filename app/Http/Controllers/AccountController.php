@@ -17,11 +17,42 @@ class AccountController extends Controller
     {
         $this->middleware('auth');
     }
+
     public function index()
     {
-    $profile = \App\Models\UserProfile::firstOrNew(['user_id' => auth()->id()]);
-    return view('account.user-account', compact('profile'));
+        $profile = \App\Models\UserProfile::firstOrNew(['user_id' => auth()->id()]);
+        return view('account.user-account', compact('profile'));
     }
+
+    public function editProfile()
+    {
+        $profile = \App\Models\UserProfile::firstOrNew(['user_id' => auth()->id()]);
+        return view('account.edit-profile', compact('profile'));
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $user = auth()->user();
+        $profile = \App\Models\UserProfile::firstOrNew(['user_id' => $user->id]);
+
+        $request->validate([
+            'full_name' => 'required|string|max:255',
+            'profile_pic' => 'nullable|image|max:2048',
+        ]);
+
+        $profile->full_name = $request->input('full_name');
+        // Handle profile picture upload
+        if ($request->hasFile('profile_pic')) {
+            $file = $request->file('profile_pic');
+            $path = $file->store('profile_pics', 'public');
+            $profile->profile_pic = 'storage/' . $path;
+        }
+        $profile->save();
+
+        Alert::toast('Profile updated successfully!', 'success');
+        return redirect()->route('account.index');
+    }
+
 
     public function becomeEmployerView()
     {
@@ -76,14 +107,15 @@ class AccountController extends Controller
     public function changePassword(Request $request)
     {
         if (!auth()->user()) {
-            Alert::toast('Not authenticated!', 'success');
+            Alert::toast('Not authenticated!', 'error');
             return redirect()->back();
         }
 
         //check if the password is valid
         $request->validate([
             'current_password' => 'required|min:8',
-            'new_password' => 'required|min:8'
+            'new_password' => 'required|min:8|confirmed',
+            'confirm_password' => 'required|min:8'
         ]);
 
         $authUser = auth()->user();
@@ -91,21 +123,23 @@ class AccountController extends Controller
         $newP = $request->new_password;
         $confirmP = $request->confirm_password;
 
-        if (Hash::check($currentP, $authUser->password)) {
-            if (Str::of($newP)->exactly($confirmP)) {
-                $user = User::find($authUser->id);
-                $user->password = Hash::make($newP);
-                if ($user->save()) {
-                    Alert::toast('Password Changed!', 'success');
-                    return redirect()->route('account.index');
-                } else {
-                    Alert::toast('Something went wrong!', 'warning');
-                }
-            } else {
-                Alert::toast('Passwords do not match!', 'info');
-            }
+        if (!Hash::check($currentP, $authUser->password)) {
+            Alert::toast('Current password is incorrect!', 'error');
+            return redirect()->back();
+        }
+
+        if ($newP !== $confirmP) {
+            Alert::toast('New passwords do not match!', 'error');
+            return redirect()->back();
+        }
+
+        $user = User::find($authUser->id);
+        $user->password = Hash::make($newP);
+        if ($user->save()) {
+            Alert::toast('Password Changed Successfully!', 'success');
+            return redirect()->route('account.index');
         } else {
-            Alert::toast('Incorrect Password!', 'info');
+            Alert::toast('Something went wrong while saving the password!', 'error');
         }
         return redirect()->back();
     }

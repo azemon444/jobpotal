@@ -1,3 +1,154 @@
-// #navbar {
-//     box-shadow: 0px 5px 18px -2px rgba(0, 0, 0, 0.36);
-// }
+// Navbar Styles
+.navbar {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.95) !important;
+    border-bottom: 1px solid var(--bs-border-color);
+    transition: all 0.15s ease-in-out;
+}
+
+// Dark mode navbar
+[data-bs-theme="dark"] .navbar {
+    background: rgba(45, 45, 45, 0.95) !important;
+    border-bottom-color: var(--bs-border-color);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+// Theme toggle button
+.theme-toggle {
+    border: none;
+    background: none;
+    color: var(--bs-text-color);
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    border-radius: 0.375rem;
+    transition: all 0.15s ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--bs-border-color);
+        transform: scale(1.1);
+    }
+
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 0 0.2rem rgba(24, 90, 145, 0.25);
+    }
+}
+
+// Navbar brand
+.navbar-brand {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--bs-primary) !important;
+
+    &:hover {
+        color: var(--bs-primary-hover) !important;
+        transform: translateY(-1px);
+    }
+}
+
+// Navbar links
+.navbar-nav .nav-link {
+    font-weight: 500;
+    transition: all 0.15s ease-in-out;
+    border-radius: 0.375rem;
+    padding: 0.5rem 1rem;
+
+    &:hover {
+        background-color: var(--bs-primary-light);
+        color: var(--bs-primary);
+        transform: translateY(-1px);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+}
+
+// Mobile navbar
+@media (max-width: 991.98px) {
+    .navbar-collapse {
+        background: var(--bs-card-bg);
+        border-radius: 0.5rem;
+        margin-top: 1rem;
+        padding: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar-nav .nav-link {
+        padding: 0.75rem 1rem;
+        margin-bottom: 0.25rem;
+
+        &:hover {
+            background-color: var(--bs-primary-light);
+            border-radius: 0.375rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    }
+
+    .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.5%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='m4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+
+    // Dark mode navbar toggler
+    [data-bs-theme="dark"] .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.5%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='m4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+}
+
+// Dropdown menu styles
+.dropdown-menu {
+    border: none;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    border-radius: 0.375rem;
+    padding: 0.5rem 0;
+    min-width: 200px;
+
+    .dropdown-item {
+        padding: 0.5rem 1rem;
+        font-weight: 500;
+        transition: all 0.15s ease-in-out;
+
+        &:hover {
+            background-color: var(--bs-primary);
+            color: white !important;
+            transform: translateX(2px);
+        }
+
+        i {
+            width: 16px;
+        }
+    }
+
+    .dropdown-divider {
+        margin: 0.25rem 0;
+        border-top: 1px solid var(--bs-border-color);
+    }
+}
+
+// Dark mode dropdown
+[data-bs-theme="dark"] .dropdown-menu {
+    background-color: var(--bs-body-bg);
+    border: 1px solid var(--bs-border-color);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
+
+    .dropdown-item {
+        color: var(--bs-body-color);
+
+        &:hover {
+            background-color: var(--bs-primary);
+            color: white !important;
+        }
+    }
+
+    .dropdown-divider {
+        border-top-color: var(--bs-border-color);
+    }
+}
+
+// Ensure dropdown is visible above other content
+.navbar {
+    z-index: 1030;
+}
+
+.dropdown-menu {
+    z-index: 1050;
+}

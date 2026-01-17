@@ -1,50 +1,67 @@
 <template>
-  <div class="job-component">
-    <div class="row">
-      <div class="col-sm-12 col-md-5 col-xl-4">
+  <div class="job-component container-fluid px-3 px-md-4">
+    <div class="row g-4">
+      <!-- Sidebar Column -->
+      <div class="col-12 col-md-4 col-xl-3">
         <Sidebar
-          @get-by-category="getByCategory"
-          @get-by-job-level="getByJobLevel"
-          @get-by-employmentType="getByEmploymentType"
-          @get-by-education="getByEducation"
+          @update-filters="updateFilters"
         />
       </div>
-      <div class="col-sm-12 col-md-7 col-xl-8">
-        <div v-if="posts.data.length < 1">
-          <p class="card-header">No Results</p>
-          <div class="card-body bg-white text-center">
-            <div class="card-text">
+
+      <!-- Main Content Column -->
+      <div class="col-12 col-md-8 col-xl-9">
+        <!-- No Results State -->
+        <div v-if="posts.data.length < 1" class="card shadow-lg border-0 text-center py-5">
+          <div class="card-body">
+            <div class="mb-4">
               <img
                 src="images/search-not-found.png"
-                alt="search-not-found-clip"
+                alt="search-not-found"
+                class="img-fluid"
+                style="max-width: 200px; opacity: 0.7;"
               />
-              <h4>
-                No Jobs found <br />
-                <span class="text-muted font-size-12px"
-                  >Please search for another keyword.</span
-                >
-              </h4>
             </div>
+            <h4 class="fw-bold text-body mb-2">No Jobs Found</h4>
+            <p class="text-muted mb-0">Please try different search criteria or filters.</p>
           </div>
         </div>
-        <div class="card" v-else>
-          <SearchResult
-            :posts="posts.data"
-            :from="posts.from"
-            :to="posts.to"
-            :total="posts.total"
-          />
 
-          <div class="my-4 text-center small">
-            <div class="d-block py-2 text-muted">
-              {{ posts.total }} Total Jobs found with matching search
-            </div>
-            <div class="d-flex justify-content-center">
-              <pagination
-                class="custom-pagination"
-                :data="posts"
-                @pagination-change-page="getJobs"
-              ></pagination>
+        <!-- Results Card -->
+        <div v-else class="card shadow-lg border-0">
+          <div class="card-header bg-body border-0 py-3">
+            <h5 class="fw-bold text-body mb-0">
+              <i class="fas fa-briefcase text-primary me-2"></i>
+              Job Results
+            </h5>
+          </div>
+
+          <div class="card-body p-0">
+            <SearchResult
+              :posts="posts.data"
+              :from="posts.from"
+              :to="posts.to"
+              :total="posts.total"
+            />
+          </div>
+
+          <!-- Pagination Footer -->
+          <div class="card-footer bg-body border-0 py-4">
+            <div class="row align-items-center">
+              <div class="col-12 col-md-6 mb-3 mb-md-0">
+                <p class="text-muted mb-0 fw-medium">
+                  <i class="fas fa-info-circle text-primary me-1"></i>
+                  Showing {{ posts.from }}-{{ posts.to }} of {{ posts.total }} jobs
+                </p>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="d-flex justify-content-center justify-content-md-end">
+                  <pagination
+                    class="custom-pagination m-0"
+                    :data="posts"
+                    @pagination-change-page="getJobs"
+                  ></pagination>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -71,22 +88,40 @@ export default {
   created() {
     this.getJobs();
   },
+  data() {
+    return {
+      posts: [],
+      currentFilters: {},
+    };
+  },
+  created() {
+    this.getJobs();
+  },
   methods: {
     getJobs(page = 1) {
       this.$Progress.start();
       const query = this.getParameterByName("q", window.location.href);
-      const category = this.getParameterByName("category_id", window.location.href);
       const company = this.getParameterByName("company_id", window.location.href);
-      let url = "/api/search?page=" + page;
+
+      let params = new URLSearchParams();
+      params.append('page', page);
+
       if (query && query.trim() !== "") {
-        url += `&q=${encodeURIComponent(query)}`;
-      }
-      if (category && category.trim() !== "") {
-        url += `&category_id=${encodeURIComponent(category)}`;
+        params.append('q', query);
       }
       if (company && company.trim() !== "") {
-        url += `&company_id=${encodeURIComponent(company)}`;
+        params.append('company_id', company);
       }
+
+      // Add current filters
+      Object.keys(this.currentFilters).forEach(key => {
+        if (this.currentFilters[key] && this.currentFilters[key] !== "") {
+          params.append(key, this.currentFilters[key]);
+        }
+      });
+
+      let url = "/api/search?" + params.toString();
+
       axios
         .get(url)
         .then((res) => res.data)
@@ -99,65 +134,9 @@ export default {
           this.$Progress.fail();
         });
     },
-    getByCategory(categoryId) {
-      this.$Progress.start();
-      axios
-        .get(`/api/search?category_id=${categoryId}`)
-        .then((res) => res.data)
-        .then((data) => {
-          this.posts = data;
-          this.$Progress.finish();
-        })
-        .catch((err) => {
-          console.log(err.message);
-          this.posts = [];
-          this.$Progress.fail();
-        });
-    },
-    getByEducation(educationLevel) {
-      this.$Progress.start();
-      axios
-        .get(`/api/search?education_level=${educationLevel}`)
-        .then((res) => res.data)
-        .then((data) => {
-          this.posts = data;
-          this.$Progress.finish();
-        })
-        .catch((err) => {
-          console.log(err.message);
-          this.posts = [];
-          this.$Progress.fail();
-        });
-    },
-    getByJobLevel(jobLevel) {
-      this.$Progress.start();
-      axios
-        .get(`/api/search?job_level=${jobLevel}`)
-        .then((res) => res.data)
-        .then((data) => {
-          this.posts = data;
-          this.$Progress.finish();
-        })
-        .catch((err) => {
-          console.log(err.message);
-          this.posts = [];
-          this.$Progress.fail();
-        });
-    },
-    getByEmploymentType(employmentType) {
-      this.$Progress.start();
-      axios
-        .get(`/api/search?employment_type=${employmentType}`)
-        .then((res) => res.data)
-        .then((data) => {
-          this.posts = data;
-          this.$Progress.finish();
-        })
-        .catch((err) => {
-          console.log(err.message);
-          this.posts = [];
-          this.$Progress.fail();
-        });
+    updateFilters(filters) {
+      this.currentFilters = { ...filters };
+      this.getJobs(); // Refresh results with new filters
     },
     getParameterByName(name, url) {
       if (!url) url = window.location.href;

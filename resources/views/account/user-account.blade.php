@@ -1,186 +1,41 @@
 @extends('layouts.account')
 
 @section('content')
-<div class="account-layoutborder">
-  <div class="account-hdr bg-primary text-white border ">
-    User Account
-  </div>
-  <div class="account-bdy border py-3">
-    <div class="row container d-flex justify-content-center">
-        <div class="col-xl-12 col-md-12">
-            <div class="card user-card-full">
-                <div class="row m-l-0 m-r-0">
-                    <div class="col-sm-4 bg-c-lite-green user-profile">
-                        <div class="card-block text-center text-white">
-                            <div class="m-b-25">
-                                @if($profile && $profile->profile_pic)
-@push('css')
-<style>
-    .profile-crop.account {
-        width: 120px;
-        height: 120px;
-        object-fit: cover;
-        object-position: center;
-        border-radius: 50%;
-    }
-</style>
-@endpush
-                                    <img src="{{ asset($profile->profile_pic) }}" class="profile-crop account" alt="Profile Picture">
-                                @else
-                                    <img src="{{asset('images/user-profile.png')}}" class="profile-crop account" alt="User-Profile-Image">
-                                @endif
-                            </div>
-                            <h6 class="f-w-600">Welcome, {{auth()->user()->name}}</h6>
-                            @role('user')
-                            <p>User</p> 
-                            @endrole
-                            @role('admin')
-                            <p>Author (Job Lister) <i class="fas fa-pen-square"></i></p> 
-                            @endrole
-                        </div>
-                    </div>
-                    <div class="col-sm-8">
-                        <div class="card-block">
-                            <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <p class="m-b-10 f-w-600">Email</p>
-                                    <h6 class="text-muted f-w-400">{{auth()->user()->email}}</h6>
-                                </div>
-                                <div class="col-sm-6">
-                                    <p class="m-b-10 f-w-600">Phone</p>
-                                    <h6 class="text-muted f-w-400">{{$profile->phone ?? 'not set'}}</h6>
-                                </div>
-                            </div>
-                            <hr>
-                            <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Personal Information</h6>
-    <div class="dashboard-summary">
-    <!-- Welcome message removed to avoid duplication -->
-        <!-- Dashboard summary only. No Saved Jobs, Change Password, or View Profile here. -->
-        <div class="mb-3">
-            <strong>Welcome, {{ auth()->user()->name }}!</strong>
-        </div>
-        <div class="row mt-4">
-            <div class="col-md-12 text-center">
-                <a href="{{ route('logout') }}" class="btn btn-link text-danger">Logout</a>
-            </div>
-        </div>
-    </div>
-                            <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Account</h6>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <p class="m-b-10 f-w-600">Password</p>
-                                    <a href="{{route('account.changePassword')}}" class="btn primary-outline-btn">Change password</a>
-                                </div>
-                                <div class="col-sm-6">
-                                  <p class="m-b-10 f-w-600">Logout</p>
-                                    <a href="{{route('logout')}}" class="btn btn-outline-dark">Logout</a>
-                                </div>
-                            </div>
-                            <ul class="social-link list-unstyled m-t-40 m-b-10">
-                                <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="facebook" data-abc="true"><i class="mdi mdi-facebook feather icon-facebook facebook" aria-hidden="true"></i></a></li>
-                                <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="twitter" data-abc="true"><i class="mdi mdi-twitter feather icon-twitter twitter" aria-hidden="true"></i></a></li>
-                                <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="instagram" data-abc="true"><i class="mdi mdi-instagram feather icon-instagram instagram" aria-hidden="true"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-  </div>
+<div class="container py-4">
+	<div class="row">
+		<div class="col-md-4 col-12 mb-4 mb-md-0">
+			<div class="profile-sidebar p-4 border shadow-sm h-100" style="background:#0dcaf0; color:#fff; border-radius: 1.2rem;">
+				<div class="text-center mb-3">
+					<img src="{{ isset($profile) && $profile && $profile->profile_pic ? asset($profile->profile_pic) : asset('images/user-profile.png') }}" class="rounded-circle border profile-avatar" style="width:110px;height:110px;object-fit:cover;object-position:center;box-shadow:0 0 12px #fff; background:#fff;" alt="Profile Picture">
+				</div>
+				<h4 class="fw-bold text-center mb-1" style="color:#fff;">{{ auth()->user()->first_name ?? (method_exists(auth()->user(), 'getFirstName') ? auth()->user()->getFirstName() : $profile->full_name ?? '') }}</h4>
+				<div class="text-center mb-2" style="font-size:1.1em; color:#e3f0ff;">{{ $profile->company ?? '' }}</div>
+				<div class="text-center mb-3">
+					<span class="badge bg-white text-primary px-3 py-2 mb-2" style="font-size:1em; font-weight:600;">{{ auth()->user()->email }}</span>
+				</div>
+				<div class="d-grid gap-2 mb-3">
+					<a href="{{ route('profile.edit') }}" class="btn btn-outline-light btn-sm"><i class="fas fa-edit"></i> Edit Profile</a>
+					@if($profile && $profile->cv)
+					<a href="{{ asset($profile->cv) }}" target="_blank" class="btn btn-outline-light btn-sm"><i class="fas fa-file-download"></i> Download CV</a>
+					@endif
+				</div>
+			</div>
+		</div>
+		<div class="col-md-8 col-12">
+			<div class="profile-main p-4 bg-white border shadow-sm h-100" style="border-radius: 1.2rem;">
+				<h3 class="fw-bold mb-3 text-primary">Welcome to Your Account Overview</h3>
+				<p class="mb-4">Here you can manage your profile, view your applications, saved jobs, and access all account features using the navigation on the left.</p>
+				<ul class="list-group mb-4">
+					<li class="list-group-item"><i class="fas fa-id-card me-2 text-primary"></i> <strong>Full Name:</strong> {{ $profile->full_name ?? auth()->user()->name }}</li>
+					<li class="list-group-item"><i class="fas fa-envelope me-2 text-primary"></i> <strong>Email:</strong> {{ auth()->user()->email }}</li>
+					<li class="list-group-item"><i class="fas fa-building me-2 text-primary"></i> <strong>Company:</strong> {{ $profile->company ?? '-' }}</li>
+					<li class="list-group-item"><i class="fas fa-phone me-2 text-primary"></i> <strong>Phone:</strong> {{ $profile->phone ?? '-' }}</li>
+					<li class="list-group-item"><i class="fas fa-map-marker-alt me-2 text-primary"></i> <strong>Address:</strong> {{ $profile->address ?? '-' }}</li>
+				</ul>
+				<a href="{{ route('account.changePassword') }}" class="btn btn-outline-primary me-2"><i class="fas fa-key"></i> Change Password</a>
+				<a href="{{ route('account.deactivate') }}" class="btn btn-outline-danger"><i class="fas fa-user-slash"></i> Close Account</a>
+			</div>
+		</div>
+	</div>
 </div>
-@endSection
-
-@push('css')
-<style>
-.user-card-full {
-    overflow: hidden;
-}
-.card {
-    border-radius: 5px;
-    -webkit-box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
-    box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
-    border: none;
-    margin-bottom: 30px
-}
-.m-r-0 {
-    margin-right: 0px
-}
-.m-l-0 {
-    margin-left: 0px
-}
-.user-card-full .user-profile {
-    border-radius: 5px 0 0 5px
-}
-.bg-c-lite-green {
-    background: linear-gradient(to right, #185A91, #3498DA)
-}
-.user-profile {
-    padding: 20px 0
-}
-.card-block {
-    padding: 1.25rem
-}
-.m-b-25 {
-    margin-bottom: 25px
-}
-.img-radius {
-    border-radius: 5px
-}
-h6 {
-    font-size: 14px
-}
-.card .card-block p {
-    line-height: 25px
-}
-
-@media only screen and (min-width: 1400px) {
-    p {
-        font-size: 14px
-    }
-}
-.card-block {
-    padding: 1.25rem
-}
-.b-b-default {
-    border-bottom: 1px solid #e0e0e0
-}
-.m-b-20 {
-    margin-bottom: 20px
-}
-.p-b-5 {
-    padding-bottom: 5px !important
-}
-.card .card-block p {
-    line-height: 25px
-}
-.m-b-10 {
-    margin-bottom: 10px
-}
-.text-muted {
-    color: #919aa3 !important
-}
-.b-b-default {
-    border-bottom: 1px solid #e0e0e0
-}
-.f-w-600 {
-    font-weight: 600
-}
-.m-b-20 {
-    margin-bottom: 20px
-}
-.m-t-40 {
-    margin-top: 20px
-}
-.p-b-5 {
-    padding-bottom: 5px !important
-}
-.m-b-10 {
-    margin-bottom: 10px
-}
-.m-t-40 {
-    margin-top: 20px
-}
-</style>
-@endpush
+@endsection

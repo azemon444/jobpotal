@@ -9,5 +9,7 @@ class PostUser extends Model
 {
     use HasFactory;
 
-    protected $timestamps = false;
+    protected $table = 'post_user';
+
+    public $timestamps = false;
 }

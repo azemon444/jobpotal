@@ -16,9 +16,10 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
-        $authors = User::role('author')->with('company')->paginate(30);
-        $roles = Role::all()->pluck('name');
-        $permissions = Permission::all()->pluck('name');
+    $authors = User::role('author')->with('company')->paginate(30);
+    $jobSeekers = User::role('user')->with('applied')->get();
+    $roles = Role::all();
+    $permissions = Permission::all();
         $rolesHavePermissions = Role::with('permissions')->get();
 
         $dashCount = [];
@@ -26,14 +27,20 @@ class AdminController extends Controller
         $dashCount['user'] = User::role('user')->count();
         $dashCount['post'] = Post::count();
         $dashCount['livePost'] = Post::where('deadline', '>', Carbon::now())->count();
+        $dashCount['companyCategory'] = CompanyCategory::count();
+        $dashCount['profileViews'] = 0; // Replace with actual logic if available
 
+        $user = auth()->user();
+        $profile = $user->profile ?? \App\Models\UserProfile::where('user_id', $user->id)->first();
         return view('account.dashboard')->with([
             'companyCategories' => CompanyCategory::all(),
             'dashCount' => $dashCount,
             'recentAuthors' => $authors,
+            'jobSeekers' => $jobSeekers,
             'roles' => $roles,
             'permissions' => $permissions,
             'rolesHavePermissions' => $rolesHavePermissions,
+            'profile' => $profile,
         ]);
     }
     public function viewAllUsers()
@@ -53,5 +60,32 @@ class AdminController extends Controller
         } else {
             return redirect()->intented('account.viewAllUsers');
         }
+    }
+
+    // List all pending posts for approval
+    public function pendingPosts()
+    {
+        $pendingPosts = Post::where('status', 'pending')->with('company')->latest()->paginate(20);
+        return view('account.pending-posts', compact('pendingPosts'));
+    }
+
+    // Approve a post
+    public function approvePost($id)
+    {
+        $post = Post::findOrFail($id);
+        $post->status = 'approved';
+        $post->save();
+        \RealRashid\SweetAlert\Facades\Alert::toast('Post approved!', 'success');
+        return redirect()->back();
+    }
+
+    // Reject a post
+    public function rejectPost($id)
+    {
+        $post = Post::findOrFail($id);
+        $post->status = 'rejected';
+        $post->save();
+        \RealRashid\SweetAlert\Facades\Alert::toast('Post rejected!', 'warning');
+        return redirect()->back();
     }
 }

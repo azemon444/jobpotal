@@ -19,6 +19,9 @@ class DatabaseSeeder extends Seeder
             CompanySeeder::class,
             UserSeeder::class
         ]);
-        // \App\Models\User::factory(10)->create();
+        // \App\Models\User::factory(10)->create();        
+        
+        // Automatically update job skills and locations after seeding
+        \Artisan::call('jobs:update-skills-locations');
     }
 }

@@ -112,8 +112,8 @@
             </div>
 
             <div class="form-group">
-              <label for="">Professional skills <span class="text-info">( If multiple separate with "," )</span></label>
-              <input type="text" placeholder="Skill1,Skill2 etc" class="form-control @error('skills') is-invalid @enderror" name="skills" value="{{ old('skills') }}" required >
+              <label for="">Professional Skills (English, comma separated)</label>
+              <input type="text" placeholder="e.g. Communication, PHP, Marketing" class="form-control @error('skills') is-invalid @enderror" name="skills" value="{{ old('skills') }}" required >
             </div>
 
             <div class="form-group">

@@ -13,7 +13,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::latest()->take(20)->with('company')->get();
+    $posts = Post::where('status', 'approved')->latest()->with('company')->get();
         $categories = CompanyCategory::take(5)->get();
         $topEmployers = Company::latest()->take(3)->get();
         return view('home')->with([

@@ -2,7 +2,7 @@
 
 @section('content')
   <div class="account-layout border">
-    <div class="account-hdr border bg-primary text-white shadow">
+  <div class="account-hdr text-white border-0 text-center py-4 position-relative shadow" style="background: linear-gradient(135deg, #0dcaf0 60%, #0a58ca 100%); border-radius: 1.5rem 1.5rem 0 0; box-shadow: 0 4px 24px rgba(13,202,240,0.08);">
       My saved Jobs
     </div>
     <div class="account-bdy p-3">

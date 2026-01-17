@@ -2,7 +2,7 @@
 
 @section('content')
   <div class="account-layout border">
-    <div class="account-hdr bg-primary text-white border">
+  <div class="account-hdr text-white border-0 text-center py-4 position-relative" style="background: linear-gradient(135deg, #0dcaf0 60%, #0a58ca 100%); border-radius: 1.5rem 1.5rem 0 0; box-shadow: 0 4px 24px rgba(13,202,240,0.08);">
       Deactivate Account
     </div>
     <div class="account-bdy p-3">
@@ -13,8 +13,6 @@
         </div>
         <div class="col-sm-12 col-md-8">
           <div class="py-3">
-            <p class="mb-3">Logout instead</p>
-            <a href="{{route('account.logout')}}" class="btn primary-outline-btn">Logout</a>
           </div>
           
           <div>

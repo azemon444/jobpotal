@@ -5,8 +5,8 @@
     @include('inc.navbar')
     <div class="container my-4">
         <div class="account-layout">
-            <div class="account-hdr border">
-                <h5><i class="fas fa-cog"></i> Account Settings</h5>
+            <div class="account-hdr border" style="background: #fff !important; color: #23272b !important;">
+                <h5 style="color: #23272b !important;"><i class="fas fa-cog"></i> Account Settings</h5>
             </div>
             <div class="account-bdy">
                 <div class="row">

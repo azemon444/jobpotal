@@ -98,12 +98,19 @@
                       <td width="64%">{{$post->experience}}</td>
                     </tr>
                     <tr>
-                      <td width="33%">Professional Skill Required</td>
+                      <td width="33%">Key Skills (English)</td>
                       <td width="3%">:</td>
                       <td width="64%">
                         @foreach($post->getSkills() as $skill)
-                        <span class="badge badge-primary">{{$skill}}</span>
+                        <span class="badge badge-primary">{{ $skill }}</span>
                         @endforeach
+                      </td>
+                    </tr>
+                    <tr>
+                      <td width="33%">Job Location</td>
+                      <td width="3%">:</td>
+                      <td width="64%">
+                        <span class="badge badge-info">{{ $post->job_location }}</span>
                       </td>
                     </tr>
                   </tbody>
@@ -188,13 +195,11 @@
     position: relative;
     overflow: hidden;
   }
-
   .company-banner-img {
     width: 100%;
     height: auto;
     overflow: hidden;
   }
-
   .banner-overlay {
     position: absolute;
     bottom: 0;
@@ -204,14 +209,12 @@
     width: 100%;
     height: 200px;
   }
-
   .company-website {
     position: absolute;
     right: 20px;
     bottom: 20px;
     color: white;
   }
-
   .company-media {
     position: absolute;
     display: flex;
@@ -222,7 +225,6 @@
     padding-right: 2rem;
     background-color:rgba(255,255,255,.8);
   }
-
   .company-logo {
     max-width: 100px;
     height: auto;
@@ -230,35 +232,124 @@
     padding: 1rem;
     background-color: white;
   }
-
   .company-category {
     font-size: 1.3rem;
   }
-
-  .company-link:hover {
-    color: #ddd;
-  }
-
   .job-title {
-    font-size: 1.3rem;
-    font-weight: bold;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--bs-primary, #185a91);
+    margin-bottom: 0.5rem;
   }
-
   .job-hdr {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: linear-gradient(to right, #e1edf7, #EDF2F7)
+    background: linear-gradient(to right, #e1edf7, #EDF2F7);
+    border-radius: 0.5rem;
   }
-
-  .job-item{
+  .job-views {
+    font-size: 1rem;
+    color: var(--bs-text-muted, #6c757d);
+    margin-bottom: 0;
+  }
+  .table-hover td, .table-hover th {
+    font-size: 1rem;
+    color: var(--bs-text-color, #212529);
+  }
+  .badge-primary {
+    background-color: var(--bs-primary, #185a91) !important;
+    color: #fff !important;
+    font-size: 0.95em;
+    font-weight: 500;
+    border-radius: 0.4em;
+    padding: 0.4em 0.8em;
+  }
+  .badge-info {
+    background-color: var(--bs-info, #0dcaf0) !important;
+    color: #fff !important;
+    font-size: 0.95em;
+    font-weight: 500;
+    border-radius: 0.4em;
+    padding: 0.4em 0.8em;
+  }
+  .job-level-description p.font-weight-bold {
+    font-size: 1.1rem;
+    color: var(--bs-primary, #185a91);
+    margin-bottom: 0.5rem;
+  }
+  .job-level-description p {
+    color: var(--bs-text-color, #212529);
+    font-size: 1rem;
+  }
+  .job-level-description table td {
+    vertical-align: middle;
+  }
+  .job-level-description .badge {
+    margin-right: 0.3em;
+  }
+  .job-level-description a {
+    color: var(--bs-primary, #185a91);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .job-level-description a:hover {
+    color: var(--bs-primary-hover, #023966);
+    text-decoration: underline;
+  }
+  .job-bdy .btn, .job-bdy .btn-primary, .job-bdy .btn-primary-outline {
+    font-size: 1rem;
+    border-radius: 0.375rem;
+    font-weight: 500;
+  }
+  .social-links .btn {
+    border-radius: 50%;
+    width: 2.2rem;
+    height: 2.2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    margin-right: 0.3rem;
+    background: var(--bs-primary, #185a91);
+    color: #fff;
+    transition: background 0.2s;
+  }
+  .social-links .btn:hover {
+    background: var(--bs-primary-hover, #023966);
+    color: #fff;
+  }
+  .job-item {
     margin-bottom: .5rem;
-    padding:.5rem 0;
+    padding: .5rem 0;
+    font-size: 1rem;
+    color: var(--bs-text-color, #212529);
   }
   .job-item:hover {
-    background-color:#eee;
-  } 
-
+    background-color: #eee;
+  }
+  .job-category, .job-category:visited {
+    color: var(--bs-primary, #185a91);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .job-category:hover {
+    color: var(--bs-primary-hover, #023966);
+    text-decoration: underline;
+  }
+  .h6, h6, .h5, h5, .h4, h4, .h3, h3, .h2, h2, .h1, h1 {
+    color: var(--bs-primary, #185a91);
+    font-weight: 600;
+  }
+  /* Remove underline from all links by default in this view */
+  a, a:visited {
+    text-decoration: none;
+    color: var(--bs-primary, #185a91);
+  }
+  a:hover {
+    text-decoration: underline;
+    color: var(--bs-primary-hover, #023966);
+  }
 </style>
 @endpush
 

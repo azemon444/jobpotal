@@ -10,6 +10,16 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
+    /**
+     * Get the user's first name, fallback to first word of name if not set.
+     */
+    public function getFirstName()
+    {
+        if (!empty($this->first_name)) {
+            return $this->first_name;
+        }
+        return explode(' ', $this->name)[0] ?? '';
+    }
     use HasFactory, Notifiable, HasRoles;
 
     /**
@@ -19,6 +29,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'first_name',
         'email',
         'password',
     ];

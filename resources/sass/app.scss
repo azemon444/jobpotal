@@ -1,4 +1,4 @@
-//Bootstrap css
+//Bootstrap 5 css
 @import "~bootstrap/scss/bootstrap";
 
 @import "./default";
@@ -7,7 +7,7 @@
 @import "./inc/navbar";
 
 //pages
-@import "./pages/home";
+@import "./pages/_home_new";
 @import "./pages/auth";
 
 //layouts

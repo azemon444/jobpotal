@@ -50,7 +50,7 @@
                       <p class="my-2"><strong>Experience:</strong> {{$profile->experience}}</p>
                     @endif
                     @if($profile->skills)
-                      <p class="my-2"><strong>Skills:</strong> {{$profile->skills}}</p>
+                      <p class="my-2"><strong>Skills (English):</strong> {{$profile->skills}}</p>
                     @endif
                     @if($profile->references)
                       <p class="my-2"><strong>References:</strong> {{$profile->references}}</p>

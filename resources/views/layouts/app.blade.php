@@ -16,18 +16,42 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
 
     <!-- Styles -->
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     @stack('css')
-    
+
 </head>
 <body>
     <div id="app">
        @yield('layout-holder')
     </div>
     @include('sweetalert::alert')
+
+    <!-- Theme toggle script removed: only one theme is used -->
+
+    <script src="{{ asset('js/bootstrap.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
+
+    <!-- Fix for logout form in dropdown -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Prevent dropdown from closing when clicking logout button
+            const logoutButton = document.querySelector('button[type="submit"][class*="dropdown-item"]');
+            if (logoutButton) {
+                logoutButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    // Submit the form
+                    const form = this.closest('form');
+                    if (form) {
+                        form.submit();
+                    }
+                });
+            }
+        });
+    </script>
+
     @stack('js')
 </body>
 </html>

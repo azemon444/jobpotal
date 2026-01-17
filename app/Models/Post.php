@@ -15,7 +15,7 @@ class Post extends Model
         'vacancy_count', 'employment_type',
         'job_location', 'salary', 'deadline',
         'education_level', 'experience',
-        'skills', 'specifications'
+        'skills', 'specifications', 'status'
     ];
 
     //user post piviot for savedJobs
