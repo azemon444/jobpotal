@@ -1,5 +1,5 @@
 <footer>
-  <div class="footer-main">
+  <div class="footer-main" style="background:#181c24; color:#f8f9fa; box-shadow: 0 -2px 16px #0008;">
     <div class="container">
       <div class="row">
         <div class="col-sm-6 col-md-3">
@@ -63,7 +63,7 @@
 @push('css')
 <style>
   .footer-main{
-    background: linear-gradient(135deg, #23272b 60%, #0dcaf0 100%) !important;
+    background: #181c24 !important;
     color: #f8f9fa !important;
   }
   .footer-links .footer-hdr{

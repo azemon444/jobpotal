@@ -1,121 +1,101 @@
 [
     {
         "company": "Grameenphone Ltd.",
-        "first_name": "Grameenphone",
         "email": "grameenphone1@example.com",
         "password": "password"
     },
     {
         "company": "bKash Limited",
-        "first_name": "bKash",
         "email": "bkash1@example.com",
         "password": "password"
     },
     {
         "company": "Square Group",
-        "first_name": "Square",
         "email": "square1@example.com",
         "password": "password"
     },
     {
         "company": "PRAN-RFL Group",
-        "first_name": "PRAN-RFL",
         "email": "pranrfl1@example.com",
         "password": "password"
     },
     {
         "company": "BRAC",
-        "first_name": "BRAC",
         "email": "brac1@example.com",
         "password": "password"
     },
     {
         "company": "ACI Limited",
-        "first_name": "ACI",
         "email": "aci1@example.com",
         "password": "password"
     },
     {
         "company": "Robi Axiata Limited",
-        "first_name": "Robi",
         "email": "robi1@example.com",
         "password": "password"
     },
     {
         "company": "Walton Group",
-        "first_name": "Walton",
         "email": "walton1@example.com",
         "password": "password"
     },
     {
         "company": "Unilever Bangladesh",
-        "first_name": "Unilever",
         "email": "unilever1@example.com",
         "password": "password"
     },
     {
         "company": "Banglalink",
-        "first_name": "Banglalink",
         "email": "banglalink1@example.com",
         "password": "password"
     },
     {
         "company": "City Bank",
-        "first_name": "City",
         "email": "city1@example.com",
         "password": "password"
     },
     {
         "company": "IFIC Bank",
-        "first_name": "IFIC",
         "email": "ific1@example.com",
         "password": "password"
     },
     {
         "company": "LankaBangla Finance",
-        "first_name": "LankaBangla",
         "email": "lankabangla1@example.com",
         "password": "password"
     },
     {
         "company": "Pathao",
-        "first_name": "Pathao",
         "email": "pathao1@example.com",
         "password": "password"
     },
     {
         "company": "Daraz",
-        "first_name": "Daraz",
         "email": "daraz1@example.com",
         "password": "password"
     },
     {
         "company": "Foodpanda",
-        "first_name": "Foodpanda",
         "email": "foodpanda1@example.com",
         "password": "password"
     },
     {
         "company": "Uber Bangladesh",
-        "first_name": "Uber",
         "email": "uber1@example.com",
         "password": "password"
     },
     {
         "company": "Shwapno",
-        "first_name": "Shwapno",
         "email": "shwapno1@example.com",
         "password": "password"
     },
     {
         "company": "Beximco",
-        "first_name": "Beximco",
         "email": "beximco1@example.com",
         "password": "password"
     },
     {
         "company": "Akij Group",
-        "first_name": "Akij",
         "email": "akij1@example.com",
         "password": "password"
     }

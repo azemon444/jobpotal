@@ -1,0 +1,71 @@
+@extends('layouts.account')
+
+@section('content')
+<div class="container py-4">
+    <div class="card border-0 shadow-lg mb-4" style="background: linear-gradient(135deg, #0dcaf0 60%, #0a58ca 100%); border-radius: 1.5rem;">
+        <div class="card-header" style="background: linear-gradient(135deg, #0dcaf0 60%, #0a58ca 100%); border-radius: 1.5rem 1.5rem 0 0; color: #fff; font-weight: 600; font-size: 1.3rem;">
+            <h4 class="mb-0">Pending Job Posts for Approval</h4>
+        </div>
+        <div class="card-body">
+            @if($pendingPosts->count())
+            <div class="table-responsive">
+                <table class="table table-hover table-striped align-middle" style="min-width:900px;">
+                    <thead>
+                        <tr style="background: #f8fafc; text-align:center;">
+                            <th style="width:4%;">#</th>
+                            <th style="width:32%;">Job Title</th>
+                            <th style="width:20%;">Company</th>
+                            <th style="width:14%;">Created At</th>
+                            <th style="width:30%;">Action & Comments</th>
+                        </tr>
+                    </thead>
+                    <tbody style="text-align:center; vertical-align:middle;">
+                        @foreach($pendingPosts as $post)
+                        <tr>
+                            <td><span class="badge bg-secondary" style="font-size:1rem;">{{ $post->id }}</span></td>
+                            <td>
+                                <span style="font-weight:600; color:#0a58ca;">{{ $post->job_title }}</span>
+                            </td>
+                            <td>{{ $post->company->title ?? '-' }}</td>
+                            <td>{{ $post->created_at ? $post->created_at->format('Y-m-d') : '-' }}</td>
+                            <td style="text-align:left;">
+                                <div style="display: flex; flex-direction: row; align-items: flex-start; gap: 10px; justify-content: flex-start; width:100%;">
+                                    <!-- Left: View button (top), Approve (below) -->
+                                    <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 4px;">
+                                        <a href="{{ route('post.show', $post->id) }}" class="btn btn-info btn-sm px-3 mb-1" style="border-radius:2em; font-weight:500;">View</a>
+                                        <form action="{{ route('admin.approvePost', $post->id) }}" method="POST" style="display:inline-block;">
+                                            @csrf
+                                            <button class="btn btn-success btn-sm px-3" style="border-radius:2em; font-weight:500;">Approve</button>
+                                        </form>
+                                    </div>
+                                    <!-- Middle: (comment form removed) -->
+                                    <!-- Right: Reject button -->
+                                    <form action="{{ route('admin.rejectPost', $post->id) }}" method="POST" style="display:inline-block; align-self:flex-end; margin-left:auto;">
+                                        @csrf
+                                        <button class="btn btn-danger btn-sm px-3" style="border-radius:2em; font-weight:500;">Reject</button>
+                                    </form>
+                                </div>
+                                <div style="width:100%; margin-top:2px; word-break:break-word; white-space:normal;">
+                                    @if($post->admin_feedback)
+                                        <div><strong>Admin:</strong> {{ $post->admin_feedback }}</div>
+                                    @endif
+                                    @if($post->author_reply)
+                                        <div><strong>Author:</strong> {{ $post->author_reply }}</div>
+                                    @endif
+                                </div>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <div class="d-flex justify-content-center mt-4 custom-pagination">
+                {{ $pendingPosts->links() }}
+            </div>
+            @else
+            <div class="alert alert-info">No pending posts for approval.</div>
+            @endif
+        </div>
+    </div>
+</div>
+@endsection

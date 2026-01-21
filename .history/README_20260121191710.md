@@ -1,0 +1,167 @@
+
+# Job Portal Website
+
+This is a Laravel-based job portal web application that allows employers to post jobs and manage applications, and job seekers to search and apply for jobs. The system includes role-based access for admin, employer, and user (job seeker), and provides dashboards and profile management for each role.
+
+## Features
+
+- User registration and login (with roles: admin, employer, user)
+- Employers can create company profiles, post jobs, and view/manage job applications
+- Job seekers can create/edit profiles, search jobs, and apply for jobs
+- Admin can approve/reject job posts, manage users, and view site statistics
+- Role-based dashboards for each user type
+- Notifications for job application status and admin actions
+- Responsive design using Bootstrap and custom CSS
+
+## Technologies Used
+
+- Laravel (PHP framework)
+- Blade templating engine
+- MySQL database
+- Bootstrap (CSS framework)
+- Spatie Permission (role management)
+- SweetAlert (notifications)
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/azemon444/jobpotal.git
+   cd jobpotal
+   ```
+2. Install PHP dependencies:
+   ```bash
+   composer install
+   ```
+3. Install Node dependencies and build assets:
+   ```bash
+   npm install
+   npm run dev
+   ```
+4. Copy the example environment file and configure your settings:
+   ```bash
+   cp .env.example .env
+   # Edit .env for your database and mail settings
+   ```
+5. Generate the application key:
+   ```bash
+   php artisan key:generate
+   ```
+6. Run database migrations and seeders:
+   ```bash
+   php artisan migrate --seed
+   ```
+7. Start the development server:
+   ```bash
+   php artisan serve
+   ```
+
+## Usage
+
+- Register as a job seeker or employer and complete your profile
+- Employers can post jobs and manage applications from their dashboard
+- Job seekers can search for jobs, apply, and track their application status
+- Admins can approve/reject job posts and manage users
+
+
+
+## Screenshots
+
+Below are screenshots of the main pages and features of the Job Portal Website:
+
+### Home Page
+![Home Page 1](screenshots/homepage1.png)
+![Home Page 2](screenshots/homepage2.png)
+![Home Page 3](screenshots/homepage3.png)
+
+### Registration & Login
+![Registration](screenshots/registration.png)
+![Login](screenshots/login.png)
+
+### Profile & Edit Profile
+![Profile 1](screenshots/profile1.png)
+![Profile 2](screenshots/profile2.png)
+![Edit Profile 1](screenshots/editprofile1.png)
+![Edit Profile 2](screenshots/editprofile2.png)
+
+### Change Password & Close Account
+![Change Password](screenshots/changed password.png)
+![Close Account](screenshots/closeaccount.png)
+
+### Job Posting & Applications
+![Job Post Page 1](screenshots/jobpostpage1.png)
+![Job Post Page 2](screenshots/jobpostpage2.png)
+![Create Job Listing](screenshots/creatjoblisting.png)
+![View Job Post Before Approve](screenshots/viewjobpostbeforeapprove.png)
+![Applicant Info](screenshots/applicantinfo.png)
+![Job Application Receive](screenshots/jobapplicationrecieve.png)
+![My Applications](screenshots/myapplications.png)
+![Saved Jobs](screenshots/savedjobs.png)
+
+### Search & Categories
+![Category Search](screenshots/categorisearch.png)
+![Category Search 2](screenshots/categorisearch2.png)
+![Company Search](screenshots/companysearche.png)
+![Company Search 2](screenshots/companysearch2.png)
+![Location Search](screenshots/locationsearch.png)
+![Search Types](screenshots/searchtypes.png)
+
+### Employer Features
+![Become Employer](screenshots/beanemployer.png)
+![Edit Company](screenshots/editcompany.png)
+
+### Author Dashboard
+![Author Dashboard 1](screenshots/autherdashboard1.png)
+![Author Dashboard 2](screenshots/autherdashboard2.png)
+
+### Admin Dashboard
+![Admin Dashboard - Categories](screenshots/admindashboard_catagories.png)
+![Admin Dashboard - Employers](screenshots/admindashboard_employers.png)
+![Admin Dashboard - Job Seekers](screenshots/admindashboard_jobseeker.png)
+![Admin Dashboard - Pending Job Posts](screenshots/admindashboard_pendingjobposts.png)
+![Admin Dashboard - Total Jobs](screenshots/admindashboard_totaljobs.png)
+
+### Notifications
+![Notifications](screenshots/notifications.png)
+
+## Database Tables
+
+Below are images of the main database tables and relationships:
+
+![All Tables](tables/alltables.png)
+![Users Table](tables/users.png)
+![User Profiles Table](tables/userprofiles.png)
+![Posts Table](tables/posts.png)
+![Job Applications Table](tables/jobapplications.png)
+![Company Categories Table](tables/companycatagori.png)
+![Companies Table](tables/companycatagori.png)
+![Post User Table](tables/postuser.png)
+![Roles Table](tables/roles.png)
+![Permissions Table](tables/permissons.png)
+![Role Has Permissions Table](tables/rolehaspermissions.png)
+![Notifications Table](tables/notifications.png)
+![Migrations Table](tables/migrations.png)
+
+## Flowcharts
+
+Below are flowcharts illustrating the system and user flows:
+
+### Full Project Flowchart
+![Full Project Flowchart](flowcharts/fullprojectflowchart.png)
+
+### Admin Flowchart
+![Admin Flowchart](flowcharts/adminsflowchart.png)
+
+### Employer Flowchart
+![Employer Flowchart](flowcharts/employersflowchart.png)
+
+### User Flowchart
+![User Flowchart](flowcharts/usersflowchart.png)
+
+## Database Schema
+
+You can include your main database tables and relationships in a `docs/` or `database/` directory, or as images in the README.
+
+## License
+
+This project is open-source and available under the MIT License.

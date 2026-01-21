@@ -94,20 +94,6 @@
 .homepage-hero-icon {
   color: #3949ab;
 }
-@media (prefers-color-scheme: dark) {
-  .homepage-hero-bg {
-    background: linear-gradient(135deg, #23272b 0%, #181a1b 100%);
-  }
-  .homepage-hero-title {
-    color: #e2e8f0;
-  }
-  .homepage-hero-desc {
-    color: #b0b8c1;
-  }
-  .homepage-hero-icon {
-    color: #6ea8fe;
-  }
-}
 </style>
 @endpush
               <h4>No Jobs Available</h4>
